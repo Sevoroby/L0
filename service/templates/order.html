@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Данные о заказе</title>
+    <style>
+        body {background-color: #d997e1;}
+        td    {padding: 5px 10px 5px 10px;}
+    </style>
+</head>
+<body>
+<h1 align="center">Данные о заказе</h1>
+<table align="center" border = "3px">
+    <tr><td><b>OrderUid</b></td><td>{{.Order.OrderUid}}</td></tr>
+    <tr><td><b>TrackNumber</b></td><td>{{.Order.TrackNumber}}</td></tr>
+    <tr><td><b>Entry</b></td><td>{{.Order.Entry.Value}}</td></tr>
+    <tr><td><b>InternalSignature</b></td><td>{{.Order.InternalSignature.Value}}</td></tr>
+    <tr><td><b>CustomerId</b></td><td>{{.Order.CustomerId.Value}}</td></tr>
+    <tr><td><b>DeliveryService</b></td><td>{{.Order.DeliveryService.Value}}</td></tr>
+    <tr><td><b>Shardkey</b></td><td>{{.Order.Shardkey.Value}}</td></tr>
+    <tr><td><b>SmId</b></td><td>{{.Order.SmId.Value}}</td></tr>
+    <tr><td><b>DateCreated</b></td><td>{{.Order.DateCreated.Value}}</td></tr>
+    <tr><td><b>OofShard</b></td><td>{{.Order.OofShard.Value}}</td></tr>
+    <tr><td rowspan ="8"><p style = "font-size:23px;"><b>Delivery</b></p></td>
+        <tr><td><b>Name</b></td><td>{{.Order.Delivery.Name}}</td></tr>
+        <tr><td><b>Phone</b></td><td>{{.Order.Delivery.Phone}}</td></tr>
+        <tr><td><b>Zip</b></td><td>{{.Order.Delivery.Zip}}</td></tr>
+        <tr><td><b>City</b></td><td>{{.Order.Delivery.City}}</td></tr>
+        <tr><td><b>Address</b></td><td>{{.Order.Delivery.Address}}</td></tr>
+        <tr><td><b>Region</b></td><td>{{.Order.Delivery.Region}}</td></tr>
+        <tr><td><b>Email</b></td><td>{{.Order.Delivery.Email}}</td></tr>
+    </tr>
+    <tr><td rowspan ="11"><p style = "font-size:23px;"><b>Payment</b></p></td>
+        <tr><td><b>Transaction</b></td><td>{{.Order.Payment.Transaction}}</td></tr>
+        <tr><td><b>RequestId</b></td><td>{{.Order.Payment.RequestId}}</td></tr>
+        <tr><td><b>Currency</b></td><td>{{.Order.Payment.Currency}}</td></tr>
+        <tr><td><b>Provider</b></td><td>{{.Order.Payment.Provider}}</td></tr>
+        <tr><td><b>Amount</b></td><td>{{.Order.Payment.Amount}}</td></tr>
+        <tr><td><b>PaymentDt</b></td><td>{{.Order.Payment.PaymentDt}}</td></tr>
+        <tr><td><b>Bank</b></td><td>{{.Order.Payment.Bank}}</td></tr>
+        <tr><td><b>PaymentCost</b></td><td>{{.Order.Payment.DeliveryCost}}</td></tr>
+        <tr><td><b>GoodsTotal</b></td><td>{{.Order.Payment.GoodsTotal}}</td></tr>
+        <tr><td><b>CustomFee</b></td><td>{{.Order.Payment.CustomFee}}</td></tr>
+    {{range $i,$el := .Order.Items}}
+        <tr><td rowspan = 12}}><p style = "font-size:23px;"><b>Items[{{$i}}]</b></p></td>
+        <tr><td><b>ChrtId</b></td><td>{{.ChrtId}}</td></tr>
+        <tr><td><b>TrackNumber</b></td><td>{{.TrackNumber}}</td></tr>
+        <tr><td><b>Price</b></td><td>{{.Price}}</td></tr>
+        <tr><td><b>Rid</b></td><td>{{.Rid}}</td></tr>
+        <tr><td><b>Name</b></td><td>{{.Name}}</td></tr>
+        <tr><td><b>Sale</b></td><td>{{.Sale}}</td></tr>
+        <tr><td><b>Size</b></td><td>{{.Size}}</td></tr>
+        <tr><td><b>TotalPrice</b></td><td>{{.TotalPrice}}</td></tr>
+        <tr><td><b>NmId</b></td><td>{{.NmId}}</td></tr>
+        <tr><td><b>Brand</b></td><td>{{.Brand}}</td></tr>
+        <tr><td><b>Status</b></td><td>{{.Status}}</td></tr>
+    {{end}}
+</tr>
+</table>
+</body>
+</html>
