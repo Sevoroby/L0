@@ -33,12 +33,13 @@ func attackNATSStreaming() {
 	// Создаем нового атакующего
 	attacker := vegeta.NewAttacker()
 
+	fmt.Println("Стресс-тест сервиса на получение сообщений NATS Streaming:")
 	// Цикл атаки на сервис сообщениями NATS Streaming
 	start := time.Now()
 	for range attacker.Attack(targeter, rate, duration, "Stress test") {
 		sc.Publish("message", []byte("Test message"))
 	}
-	//Если количество сообщений в секунду превышает 200, то сервер не справляется с нагрузкой и обрабатывает их дольше 10 сек
+
 	elapsed := time.Since(start)
 	fmt.Printf("Время выполнения: %s\n", elapsed)
 }
@@ -50,14 +51,14 @@ func attackHTTP() {
 	// Создаем новый таргетер с URL локального http-сервера
 	targeter := vegeta.NewStaticTargeter(vegeta.Target{
 		Method: "GET",
-		URL:    "http://localhost:8080/order/b563feb7b2b84b6test0",
+		URL:    "http://localhost:8080/orders",
 	})
 
 	// Создаём новый атакер
 	attacker := vegeta.NewAttacker()
 
 	var metrics vegeta.Metrics
-
+	fmt.Println("Стресс-тест сервиса на обработку http запросов:")
 	// Атакуем сервис и записываем метрики
 	for res := range attacker.Attack(targeter, rate, duration, "Stress test") {
 		metrics.Add(res)
@@ -65,7 +66,6 @@ func attackHTTP() {
 
 	metrics.Close()
 
-	//Если слать более 4000 запросов в секунду, то сервер не способен все обработать и возникает ошибка
-	//An operation on a socket could not be performed because the system lacked sufficient buffer space or because a queue was full.
+	//Сгенерировать отчёт по метрикам
 	vegeta.NewTextReporter(&metrics).Report(os.Stdout)
 }

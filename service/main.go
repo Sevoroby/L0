@@ -36,7 +36,6 @@ func main() {
 
 	//Заполнение кэша из БД
 	go fillCache()
-
 	//Ожидание
 	w := sync.WaitGroup{}
 	w.Add(1)
@@ -106,8 +105,9 @@ func fillCache() int {
 		}
 	}
 	if err = rows.Err(); err != nil {
-		panic(err)
+		fmt.Println(err.Error())
 	}
+	fmt.Println("Количество элементов в кэше - ", len(cache))
 	return len(cache)
 }
 func getMessageHandler(m *stan.Msg) {
