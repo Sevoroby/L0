@@ -50,6 +50,7 @@ func createServer() {
 	router.LoadHTMLGlob("service/templates/*.html")
 	// Установить маршрут для GET запросов по определённмоу id заказа
 	router.GET("/order/:id", getOrderByIdHandler)
+	router.GET("/orders", getOrdersHandler)
 	// Запуск сервера на порту 8080
 	router.Run(":8080")
 }
@@ -175,6 +176,18 @@ func insertToDB(db *sql.DB, order Order) {
 	} else {
 		fmt.Println("Запись успешно добавлена в бд")
 	}
+}
+func getOrdersHandler(c *gin.Context) {
+	// Получение всего списка заказов
+	lock.RLock()
+	orderList := make([]Order, 0, len(cache))
+	for _, order := range cache {
+		orderList = append(orderList, order)
+	}
+	lock.RUnlock()
+
+	// Шаблон HTML для списка заказов
+	c.HTML(http.StatusOK, "orders.html", gin.H{"Orders": orderList})
 }
 func getOrderByIdHandler(c *gin.Context) {
 	// Получение значения параметра "id" из URL

@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Список заказов</title>
+    <style>
+        body {background-color: #d997e1;}
+        td    {padding: 5px 10px 5px 10px;}
+    </style>
 </head>
 <body>
-$END$
+<h1 align="center">Список заказов</h1>
+{{range .Orders}}
+<div align="center">
+    <h3><a href="/order/{{.OrderUid}}">{{.OrderUid}}</a></h3>
+</div>
+{{end}}
 </body>
 </html>
